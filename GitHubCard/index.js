@@ -1,9 +1,11 @@
+const { default: Axios } = require("axios");
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+Axios.get('https://api.github.com/users/notrabe')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +30,14 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const cards = document.querySelector('.cards')
+
+const followersArray = ['tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -50,6 +59,47 @@ const followersArray = [];
     </div>
 */
 
+function cardMaker(object){
+ const card = document.createElement('div')
+ const img = document.createElement('img')
+ const cardInfo = document.createElement('div')
+ const name = document.createElement('h3')
+ const username = document.createElement('p')
+ const location = document.createElement('p')
+ const profile = document.createElement('p')
+ const url = document.createElement('a')
+ const followers = document.createElement('p')
+ const following = document.createElement('p')
+ const bio = document.createElement('p')
+
+ card.appendChild(img)
+ card.appendChild(cardInfo)
+ card.appendChild(name)
+ card.appendChild(username)
+ card.appendChild(location)
+ card.appendChild(profile)
+ card.appendChild(url)
+ card.appendChild(followers)
+ card.appendChild(following)
+ card.appendChild(bio)
+ 
+ card.classList.add('card')
+ cardInfo.classList.add('card-info')
+ name.classList.add('name')
+ username.classList.add('username')
+
+ img.src = object.avatar_url
+ name.textContent = object.name
+ username.textContent = object.login
+ location.textContent = object.location
+ profile.textContent = object.url
+ followers.textContent = object.followers
+ following.textContent = object.following
+ bio.textContent = object.bio
+
+ return card
+}
+
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +108,8 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+followersArray.forEach(obj => {
+  const theCard = cardMaker(obj)
+  cards.appendChild(theCard)
+})
